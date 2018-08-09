@@ -1,0 +1,42 @@
+html,
+body {
+  margin: 0;
+  border: 0 none;
+  padding: 0;
+  color: white;
+}
+body{
+    background-image: url("/assets/images/circuit.png");
+}
+.container {
+    width: 100%;
+    max-width: 960px;
+    margin: 30px auto;
+    background-color: #488214;
+    height: 90vh;
+    clear: both;
+  }
+
+header {
+    text-align: center;
+    padding-top: 10px;
+    margin: 0;
+    font-size: 24pt;
+    text-shadow: 2px 2px black;
+}
+
+button {
+    background-color: black; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 20px;
+    position: relative;
+}
+
+#game {
+    text-align: center;
+    font-size: 18pt;
+}
