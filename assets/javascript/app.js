@@ -34,6 +34,7 @@ $(document).ready(function(){
     ]
     var correct = 0;
     var incorrect = 0;
+    var unasnwered = 0;
     var currentQuestion = 0;
     var time;
     display = $("#game");
@@ -79,6 +80,7 @@ $(document).ready(function(){
               display.html("<div><h2>All done!</h2></div>"+
                             "<div>Correct: " + correct + "</div>" +
                             "<div>Incorrect: " + incorrect + "</div>" +
+                            "<div>Unaswered: " + unasnwered + "</div>" +
                             "<button class='restart'>Restart?</button>");
         }
     }
@@ -87,23 +89,28 @@ $(document).ready(function(){
         clearInterval(time);
         if(str === questions[currentQuestion].correct){
             correct++;
-            showAnswer(true);
+            showAnswer("correct");
         }
         else{
             incorrect++;
-            showAnswer(false);
+            showAnswer("incorrect");
         }
     }
 
-    function showAnswer(correct){
-        if(correct){
+    function showAnswer(arg){
+        if(arg === "correct"){
             display.html("<div><h2>Correct!</h2></div>"+
                         "<button class='next'>Next Question</button>")
         }
-        else{
+        else if(arg === "incorrect"){
             display.html("<div><h2>Incorrect!</h2></div>" +
                         "<div>The correct answer was: " + questions[currentQuestion].correct + "</div>" +
                         "<button class='next'>Next Question</button>")
+        }
+        else if(arg === "time"){
+            display.html("<div><h2>Time's Up!</h2></div>" +
+            "<div>The correct answer was: " + questions[currentQuestion].correct + "</div>" +
+            "<button class='next'>Next Question</button>")
         }
         currentQuestion++;
     }
@@ -113,9 +120,9 @@ $(document).ready(function(){
         time = setInterval(function(){
         $("#timer").text("Time Remaining: " + count);
             if(count === 0){
+                unasnwered++;
                 clearInterval(time);
-                currentQuestion++;
-                nextQuestion();
+                showAnswer("time");
             }
             count--;
         }, 1000);            
