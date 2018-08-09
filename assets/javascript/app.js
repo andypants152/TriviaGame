@@ -46,6 +46,8 @@ $(document).ready(function(){
         evaluateAnswer($(this).attr("data-answer"));
     })
 
+    $("#game").on("click", ".next", nextQuestion);
+
     $("#game").on("click", ".restart", function(){
         currentQuestion = 0;
         correct = 0;
@@ -82,15 +84,28 @@ $(document).ready(function(){
     }
 
     function evaluateAnswer(str){
+        clearInterval(time);
         if(str === questions[currentQuestion].correct){
             correct++;
+            showAnswer(true);
         }
         else{
             incorrect++;
+            showAnswer(false);
+        }
+    }
+
+    function showAnswer(correct){
+        if(correct){
+            display.html("<div><h2>Correct!</h2></div>"+
+                        "<button class='next'>Next Question</button>")
+        }
+        else{
+            display.html("<div><h2>Incorrect!</h2></div>" +
+                        "<div>The correct answer was: " + questions[currentQuestion].correct + "</div>" +
+                        "<button class='next'>Next Question</button>")
         }
         currentQuestion++;
-        clearInterval(time);
-        nextQuestion();
     }
             
     function timer(){
